@@ -1,15 +1,6 @@
 -- Sample Products Data for WishCrate
 -- This file is automatically loaded by Spring Boot on startup
-
--- Clear existing data (respecting foreign key constraints - delete dependents first)
-DELETE FROM order_items WHERE order_id IN (SELECT id FROM orders);
-DELETE FROM orders WHERE TRUE;
-DELETE FROM cart_items WHERE cart_id IN (SELECT id FROM carts);
-DELETE FROM carts WHERE TRUE;
-DELETE FROM reviews WHERE TRUE;
-DELETE FROM products WHERE TRUE;
-DELETE FROM categories WHERE TRUE;
-DELETE FROM users WHERE email IN ('user@example.com', 'admin@example.com');
+-- Note: When ddl-auto: create is used, tables are dropped/recreated automatically
 
 -- Insert sample categories
 INSERT INTO categories (name, description) VALUES 
