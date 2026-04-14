@@ -96,6 +96,6 @@ ON CONFLICT DO NOTHING;
 -- Insert sample regular user for testing
 -- NOTE: Create admin user through secure admin creation endpoint in production
 -- DO NOT hardcode credentials in source code files
-INSERT INTO users (email, password, first_name, last_name, phone_number, role, created_at, updated_at) VALUES
-('user@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'John', 'Doe', '9876543210', 'USER', NOW(), NOW())
+INSERT INTO users (email, password, first_name, last_name, phone_number, role, enabled, created_at, updated_at) VALUES
+('user@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'John', 'Doe', '9876543210', 'USER', true, NOW(), NOW())
 ON CONFLICT DO NOTHING;
