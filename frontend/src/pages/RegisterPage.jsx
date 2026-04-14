@@ -58,7 +58,12 @@ const RegisterPage = () => {
       toast.success('Registration successful!');
       navigate('/');
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Registration failed');
+      const errorMsg = error.response?.data?.message || 
+                       error.response?.data?.error || 
+                       error.message || 
+                       'Registration failed';
+      console.error('Registration error:', error.response?.data);
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
@@ -120,6 +125,7 @@ const RegisterPage = () => {
                       value={formData.firstName}
                       onChange={handleChange}
                       required
+                      helperText="2-50 characters"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -138,6 +144,7 @@ const RegisterPage = () => {
                       value={formData.lastName}
                       onChange={handleChange}
                       required
+                      helperText="2-50 characters"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -157,6 +164,7 @@ const RegisterPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      helperText="Valid email address"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -195,6 +203,7 @@ const RegisterPage = () => {
                       value={formData.password}
                       onChange={handleChange}
                       required
+                      helperText="8+ chars: uppercase, lowercase, number, special char (@$!%*?&)"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
