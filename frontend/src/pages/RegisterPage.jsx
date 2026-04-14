@@ -223,7 +223,7 @@ const RegisterPage = () => {
                       value={formData.password}
                       onChange={handleChange}
                       required
-                      helperText="8+ chars: uppercase, lowercase, number, special char (@$!%*?&)"
+                      helperText="8+ characters with letters and numbers"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
