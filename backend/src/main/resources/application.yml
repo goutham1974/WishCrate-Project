@@ -3,18 +3,18 @@ spring:
     name: wishcrate
   
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/wishcrate}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:password}
-    driver-class-name: org.postgresql.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3306/wishcrate?allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
   
   sql:
@@ -23,10 +23,10 @@ spring:
       data-locations: classpath:data.sql
   
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: your-email@gmail.com
-    password: your-app-password
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -46,25 +46,25 @@ server:
 
 # JWT Configuration
 jwt:
-  secret: ${JWT_SECRET:WishCrateSecretKeyForJWTTokenGenerationMustBeLongEnough2026}
+  secret: ${JWT_SECRET}
   expiration: 86400000 # 24 hours in milliseconds
 
 # Stripe Configuration
 stripe:
   api:
-    key: your_stripe_secret_key
+    key: ${STRIPE_API_KEY}
 
 # AWS Configuration
 aws:
   access:
-    key: your_aws_access_key
+    key: ${AWS_ACCESS_KEY}
   secret:
-    key: your_aws_secret_key
+    key: ${AWS_SECRET_KEY}
   s3:
-    bucket: wishcrate-images
-    region: us-east-1
+    bucket: ${AWS_S3_BUCKET:wishcrate-images}
+    region: ${AWS_S3_REGION:us-east-1}
 
 # Application Configuration
 app:
   frontend:
-    url: ${FRONTEND_URL:http://localhost:3000}
+    url: ${FRONTEND_URL}

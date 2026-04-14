@@ -21,7 +21,6 @@ import com.wishcrate.model.OrderItem;
 import com.wishcrate.model.Product;
 import com.wishcrate.model.ShippingAddress;
 import com.wishcrate.model.User;
-import com.wishcrate.repository.AddressRepository;
 import com.wishcrate.repository.CartRepository;
 import com.wishcrate.repository.OrderRepository;
 import com.wishcrate.repository.ProductRepository;
@@ -34,16 +33,13 @@ public class OrderService {
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-    private final AddressRepository addressRepository;
     
     public OrderService(OrderRepository orderRepository, CartRepository cartRepository, 
-                       ProductRepository productRepository, UserRepository userRepository, 
-                       AddressRepository addressRepository) {
+                       ProductRepository productRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
-        this.addressRepository = addressRepository;
     }
     
     private User getCurrentUser() {
