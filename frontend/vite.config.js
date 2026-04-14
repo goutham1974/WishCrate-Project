@@ -11,5 +11,20 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'axios']
+        }
+      }
+    }
+  },
+  preview: {
+    port: 3000,
+    strictPort: false
   }
 })

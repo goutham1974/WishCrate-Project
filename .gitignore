@@ -6,12 +6,19 @@ backend/.mvn/
 *.war
 *.ear
 
-# Node
-frontend/node_modules/
-frontend/dist/
+# Environment Variables (IMPORTANT: Do not commit!)
+.env
+.env.local
+.env.*.local
+*.properties
+backend/src/main/resources/application-local.yml
 frontend/.env
 frontend/.env.local
 frontend/.env.production
+
+# Node
+frontend/node_modules/
+frontend/dist/
 
 # IDE
 .idea/
