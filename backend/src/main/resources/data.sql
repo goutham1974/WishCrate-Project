@@ -2,14 +2,12 @@
 -- This file is automatically loaded by Spring Boot on startup
 -- Note: When ddl-auto: create is used, tables are dropped/recreated automatically
 
--- Insert sample categories
-INSERT INTO categories (name, description) VALUES 
-('Electronics', 'Electronic devices and gadgets'),
-('Fashion', 'Clothing and accessories'),
-('Home & Garden', 'Home improvement and garden supplies'),
-('Sports', 'Sports equipment and fitness'),
-('Books', 'Books and educational materials')
-ON CONFLICT DO NOTHING;
+-- Insert sample categories (individual inserts for reliability)
+INSERT INTO categories (id, name, description) VALUES (1, 'Electronics', 'Electronic devices and gadgets');
+INSERT INTO categories (id, name, description) VALUES (2, 'Fashion', 'Clothing and accessories');
+INSERT INTO categories (id, name, description) VALUES (3, 'Home & Garden', 'Home improvement and garden supplies');
+INSERT INTO categories (id, name, description) VALUES (4, 'Sports', 'Sports equipment and fitness');
+INSERT INTO categories (id, name, description) VALUES (5, 'Books', 'Books and educational materials');
 
 -- Insert sample products
 INSERT INTO products (name, description, price, brand, category_id, stock_quantity, image_url, average_rating, total_reviews, active, featured, created_at, updated_at) VALUES
@@ -96,13 +94,11 @@ INSERT INTO products (name, description, price, brand, category_id, stock_quanti
 ('Educated', 'Memoir of survival and education', 16.99, 'Tara Westover', 5, 68, 'https://placehold.co/300x300/6a1b9a/ffffff?text=Educated', 0.0, 0, true, false, NOW(), NOW()),
 ('Becoming', 'Michelle Obama memoir', 17.99, 'Michelle Obama', 5, 73, 'https://placehold.co/300x300/455a64/ffffff?text=Becoming', 0.0, 0, true, false, NOW(), NOW()),
 ('The Alchemist', 'Philosophical fiction', 15.99, 'Paulo Coelho', 5, 98, 'https://placehold.co/300x300/e65100/ffffff?text=Alchemist', 0.0, 0, true, false, NOW(), NOW()),
-('Rich Dad Poor Dad', 'Personal finance guide', 17.99, 'Robert Kiyosaki', 5, 54, 'https://placehold.co/300x300/212121/ffffff?text=Rich+Dad', 0.0, 0, true, false, NOW(), NOW())
-ON CONFLICT DO NOTHING;
+('Rich Dad Poor Dad', 'Personal finance guide', 17.99, 'Robert Kiyosaki', 5, 54, 'https://placehold.co/300x300/212121/ffffff?text=Rich+Dad', 0.0, 0, true, false, NOW(), NOW());
 
 -- Insert sample regular user for testing
 -- NOTE: Create admin user through secure admin creation endpoint in production
 -- DO NOT hardcode credentials in source code files
 INSERT INTO users (email, password, first_name, last_name, phone_number, role, enabled, created_at, updated_at) VALUES
 ('user@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'John', 'Doe', '9876543210', 'USER', true, NOW(), NOW()),
-('admin@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'Admin', 'User', '1111111111', 'ADMIN', true, NOW(), NOW())
-ON CONFLICT DO NOTHING;
+('admin@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'Admin', 'User', '1111111111', 'ADMIN', true, NOW(), NOW());
