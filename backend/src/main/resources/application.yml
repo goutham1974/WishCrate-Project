@@ -19,7 +19,8 @@ spring:
   
   sql:
     init:
-      mode: never
+      mode: ALWAYS
+      data-locations: classpath:data.sql
   
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
