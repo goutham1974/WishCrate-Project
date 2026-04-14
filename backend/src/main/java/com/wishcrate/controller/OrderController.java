@@ -78,11 +78,11 @@ public class OrderController {
         dto.setId(order.getId());
         dto.setOrderNumber(order.getOrderNumber());
         dto.setOrderDate(order.getOrderDate());
-        dto.setSubtotal(order.getSubtotal());
-        dto.setTax(order.getTax());
-        dto.setShippingCost(order.getShippingCost());
-        dto.setTotalAmount(order.getTotalAmount());
-        dto.setOrderStatus(order.getOrderStatus() != null ? order.getOrderStatus().toString() : null);
+        dto.setSubtotal(order.getSubtotal() != null ? order.getSubtotal().doubleValue() : 0.0);
+        dto.setTax(order.getTax() != null ? order.getTax().doubleValue() : 0.0);
+        dto.setShippingCost(order.getShippingCost() != null ? order.getShippingCost().doubleValue() : 0.0);
+        dto.setTotalAmount(order.getTotalAmount() != null ? order.getTotalAmount().doubleValue() : 0.0);
+        dto.setOrderStatus(order.getStatus() != null ? order.getStatus().toString() : null);
         dto.setPaymentStatus(order.getPaymentStatus() != null ? order.getPaymentStatus().toString() : null);
         dto.setPaymentMethod(order.getPaymentMethod() != null ? order.getPaymentMethod().toString() : null);
         dto.setTrackingNumber(order.getTrackingNumber());
@@ -99,15 +99,15 @@ public class OrderController {
         }
         
         // Convert OrderItems to OrderItemDTOs
-        if (order.getItems() != null && !order.getItems().isEmpty()) {
-            dto.setItems(order.getItems().stream()
+        if (order.getOrderItems() != null && !order.getOrderItems().isEmpty()) {
+            dto.setItems(order.getOrderItems().stream()
                 .map(item -> new OrderItemDTO(
                     item.getId(),
                     item.getProduct().getName(),
                     item.getProduct().getImageUrl(),
                     item.getQuantity(),
-                    item.getPrice(),
-                    item.getSubtotal(),
+                    item.getPrice() != null ? item.getPrice().doubleValue() : 0.0,
+                    item.getSubtotal() != null ? item.getSubtotal().doubleValue() : 0.0,
                     item.getProduct().getBrand()
                 ))
                 .collect(Collectors.toList()));
@@ -119,7 +119,7 @@ public class OrderController {
     // Helper method to format address
     private String formatAddress(com.wishcrate.model.ShippingAddress address) {
         return String.format("%s, %s, %s, %s %s, %s",
-            address.getStreet(),
+            address.getAddressLine1(),
             address.getCity(),
             address.getState(),
             address.getZipCode(),
