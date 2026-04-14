@@ -19,7 +19,7 @@ spring:
   
   sql:
     init:
-      mode: always
+      mode: on_first_use
       data-locations: classpath:data.sql,classpath:data-migration.sql
   
   mail:
