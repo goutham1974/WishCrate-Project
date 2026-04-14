@@ -58,11 +58,30 @@ const RegisterPage = () => {
       toast.success('Registration successful!');
       navigate('/');
     } catch (error) {
-      const errorMsg = error.response?.data?.message || 
-                       error.response?.data?.error || 
-                       error.message || 
-                       'Registration failed';
-      console.error('Registration error:', error.response?.data);
+      console.error('Registration error details:', {
+        status: error.response?.status,
+        data: error.response?.data,
+        message: error.message,
+      });
+      
+      let errorMsg = 'Registration failed';
+      
+      // Handle validation errors with field-level messages
+      if (error.response?.data?.errors && typeof error.response.data.errors === 'object') {
+        // errors is a map of field names to error messages
+        const fieldErrors = Object.entries(error.response.data.errors)
+          .map(([field, msg]) => `${field}: ${msg}`)
+          .join('\n');
+        errorMsg = 'Validation errors:\n' + fieldErrors;
+      } else if (error.response?.data?.message) {
+        errorMsg = error.response.data.message;
+      } else if (error.response?.data?.error) {
+        errorMsg = error.response.data.error;
+      } else if (error.response?.status === 400) {
+        errorMsg = 'Invalid registration data. Check all fields and try again.';
+      }
+      
+      console.log('Showing error:', errorMsg);
       toast.error(errorMsg);
     } finally {
       setLoading(false);
