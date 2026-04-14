@@ -9,6 +9,9 @@ INSERT INTO categories (id, name, description) VALUES (3, 'Home & Garden', 'Home
 INSERT INTO categories (id, name, description) VALUES (4, 'Sports', 'Sports equipment and fitness');
 INSERT INTO categories (id, name, description) VALUES (5, 'Books', 'Books and educational materials');
 
+-- Update sequence after explicit ID inserts for PostgreSQL
+SELECT setval(pg_get_serial_sequence('categories', 'id'), MAX(id)) FROM categories;
+
 -- Insert sample products
 INSERT INTO products (name, description, price, brand, category_id, stock_quantity, image_url, average_rating, total_reviews, active, featured, created_at, updated_at) VALUES
 -- Electronics
