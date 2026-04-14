@@ -8,23 +8,33 @@ services:
       - key: PORT
         value: 8080
       - key: DB_URL
-        value: jdbc:mysql://${DB_HOST}:${DB_PORT}/wishcrate_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+        fromDatabase:
+          name: postgres
+          property: connectionString
       - key: DB_USERNAME
         fromDatabase:
-          name: mysql
+          name: postgres
           property: username
       - key: DB_PASSWORD
         fromDatabase:
-          name: mysql
+          name: postgres
           property: password
+      - key: DB_DRIVER
+        value: org.postgresql.Driver
       - key: JWT_SECRET
         generateValue: true
       - key: STRIPE_API_KEY
-        value: your_stripe_secret_key
+        fromService:
+          type: env
+          name: STRIPE_API_KEY
       - key: MAIL_USERNAME
-        value: your-email@gmail.com
+        fromService:
+          type: env
+          name: MAIL_USERNAME
       - key: MAIL_PASSWORD
-        value: your-app-password
+        fromService:
+          type: env
+          name: MAIL_PASSWORD
     memoryOverrides:
       - memoryMB: 512
 
@@ -39,11 +49,11 @@ services:
         value: https://wishcrate-backend.onrender.com/api
 
   - type: pserv
-    name: wishcrate-mysql
+    name: wishcrate-postgres
     plan: free
     ipAllowList: []
     envVars:
-      - key: MYSQL_ROOT_PASSWORD
-        generateValue: true
-      - key: MYSQL_DATABASE
-        value: wishcrate_db
+      - key: POSTGRES_DB
+        value: wishcrate
+      - key: POSTGRES_USER
+        value: postgres
