@@ -174,6 +174,8 @@ const RegisterPage = () => {
                       name="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
+                      required
+                      helperText="10-15 digits"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
