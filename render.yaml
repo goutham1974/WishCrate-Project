@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: wishcrate-backend
+    runtime: java
+    buildCommand: cd backend && mvn clean package -DskipTests
+    startCommand: java -jar backend/target/wishcrate-backend-1.0.0.jar
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DB_URL
+        value: jdbc:mysql://${DB_HOST}:${DB_PORT}/wishcrate_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - key: DB_USERNAME
+        fromDatabase:
+          name: mysql
+          property: username
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: mysql
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: STRIPE_API_KEY
+        value: your_stripe_secret_key
+      - key: MAIL_USERNAME
+        value: your-email@gmail.com
+      - key: MAIL_PASSWORD
+        value: your-app-password
+    memoryOverrides:
+      - memoryMB: 512
+
+  - type: web
+    name: wishcrate-frontend
+    runtime: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: npm run preview
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://wishcrate-backend.onrender.com/api
+
+  - type: pserv
+    name: wishcrate-mysql
+    plan: free
+    ipAllowList: []
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: wishcrate_db
