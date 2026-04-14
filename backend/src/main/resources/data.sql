@@ -78,7 +78,7 @@ INSERT INTO products (name, description, price, brand, category_id, stock_quanti
 ('JBL Endurance Sport Wireless Earbuds', 'Waterproof sports earbuds with earmold', 99.99, 'JBL', 4, 72, 'https://placehold.co/400x400/1a1a1a/ffffff?text=JBL+Earbuds', 4.6, 289, true, true, NOW(), NOW()),
 ('Garmin Forerunner 255 Smartwatch', 'GPS running watch with training metrics', 299.99, 'Garmin', 4, 45, 'https://placehold.co/400x400/3c3c3c/00ff00?text=Garmin+Watch', 4.8, 345, true, true, NOW(), NOW()),
 ('Compression Clothing Set Active Wear', 'Moisture-wicking compression sports set', 79.99, 'Skins', 4, 35, 'https://placehold.co/400x400/0d0d0d/ff0000?text=Compression', 4.5, 156, true, false, NOW(), NOW()),
-('Tactical Gym Bag 50L Rucksack', 'Military-style tactical training gear bag', 149.99, 'LAPG', 4, 28, 'https://placehold.co/400x400/3d3d3d/ffff00?text=Tactical+Bag', 4.6, 89, true, false, NOW(), NOW())
+('Tactical Gym Bag 50L Rucksack', 'Military-style tactical training gear bag', 149.99, 'LAPG', 4, 28, 'https://placehold.co/400x400/3d3d3d/ffff00?text=Tactical+Bag', 4.6, 89, true, false, NOW(), NOW()),
 
 -- Books  
 ('The Midnight Library Book', 'Contemporary fiction bestseller', 16.99, 'Matt Haig', 5, 75, 'https://placehold.co/300x300/4a235a/ffffff?text=Midnight+Library', 0.0, 0, true, false, NOW(), NOW()),
