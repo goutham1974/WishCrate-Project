@@ -1,6 +1,11 @@
 -- Sample Products Data for WishCrate
--- This file is automatically loaded by Spring Boot on startup
--- Note: When ddl-auto: create is used, tables are dropped/recreated automatically
+-- Clear existing data before inserting
+DELETE FROM products;
+DELETE FROM categories;
+
+-- Reset sequences
+ALTER SEQUENCE categories_id_seq RESTART WITH 1;
+ALTER SEQUENCE products_id_seq RESTART WITH 1;
 
 -- Insert sample categories (individual inserts for reliability)
 INSERT INTO categories (id, name, description) VALUES (1, 'Electronics', 'Electronic devices and gadgets');
