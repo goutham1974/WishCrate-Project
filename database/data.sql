@@ -104,9 +104,10 @@ INSERT INTO products (name, description, price, brand, category_id, stock_quanti
 ('The Alchemist', 'Philosophical fiction', 15.99, 'Paulo Coelho', 5, 98, 'https://images.unsplash.com/photo-1507842721345-d45d89e8afd8?w=400&h=500&fit=crop', 0.0, 0, true, false, NOW(), NOW()),
 ('Rich Dad Poor Dad', 'Personal finance guide', 17.99, 'Robert Kiyosaki', 5, 54, 'https://images.unsplash.com/photo-1507842721367-d45d89e8afd9?w=400&h=500&fit=crop', 0.0, 0, true, false, NOW(), NOW());
 
--- Insert sample regular user for testing
+-- Insert sample regular user for testing (handles duplicates gracefully)
 -- NOTE: Create admin user through secure admin creation endpoint in production
 -- DO NOT hardcode credentials in source code files
 INSERT INTO users (email, password, first_name, last_name, phone_number, role, enabled, created_at, updated_at) VALUES
 ('user@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'John', 'Doe', '9876543210', 'USER', true, NOW(), NOW()),
-('admin@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'Admin', 'User', '1111111111', 'ADMIN', true, NOW(), NOW());
+('admin@example.com', '$2a$10$slYQmyNdGzin7olVN3p5Be7DQnt7SZgPlgdly/tsQvgnQvnIGEHze', 'Admin', 'User', '1111111111', 'ADMIN', true, NOW(), NOW())
+ON CONFLICT (email) DO UPDATE SET updated_at = NOW();
