@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   Container,
   Box,
@@ -67,7 +68,8 @@ const ProfilePage = () => {
                   variant="outlined"
                   startIcon={<Edit />}
                   sx={{ mb: 2 }}
-                  onClick={() => navigate('/profile/edit')}
+                  disabled
+                  title="Profile editing coming soon"
                 >
                   Edit Profile
                 </Button>
@@ -182,7 +184,7 @@ const ProfilePage = () => {
                       boxShadow: 6,
                     },
                   }}
-                  onClick={() => navigate('/profile/addresses')}
+                  onClick={() => toast.info('Address management coming soon!')}
                 >
                   <CardContent sx={{ textAlign: 'center', p: 4 }}>
                     <LocationOn sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
@@ -213,7 +215,7 @@ const ProfilePage = () => {
                       boxShadow: 6,
                     },
                   }}
-                  onClick={() => navigate('/profile/settings')}
+                  onClick={() => toast.info('Settings page coming soon!')}
                 >
                   <CardContent sx={{ textAlign: 'center', p: 4 }}>
                     <Edit sx={{ fontSize: 60, color: 'warning.main', mb: 2 }} />
