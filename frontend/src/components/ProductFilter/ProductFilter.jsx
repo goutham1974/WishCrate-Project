@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../services/api';
-import ProductCard from './ProductCard/ProductCard';
-import '../styles/ProductFilter.css';
+import { api } from '../../services/api';
+import ProductCard from '../ProductCard/ProductCard';
+import '../../styles/ProductFilter.css';
 
 export default function ProductFilter() {
   const [products, setProducts] = useState([]);
