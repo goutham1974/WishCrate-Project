@@ -119,6 +119,25 @@ public class ProductService {
         productRepository.save(product);
     }
     
+    public Page<ProductDTO> filterProducts(String keyword, Long categoryId, BigDecimal minPrice,
+                                          BigDecimal maxPrice, String brand, Double minRating,
+                                          boolean discountOnly, Pageable pageable) {
+        return productRepository.filterProducts(keyword, categoryId, minPrice, maxPrice,
+                brand, minRating, discountOnly, pageable)
+                .map(this::convertToDTO);
+    }
+    
+    public Page<ProductDTO> getProductsByBrand(String brand, Pageable pageable) {
+        return productRepository.findByBrandAndActiveTrue(brand, pageable)
+                .map(this::convertToDTO);
+    }
+    
+    public List<ProductDTO> getTopRatedProducts(int limit) {
+        return productRepository.findTopRatedProducts(limit).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    
     private ProductDTO convertToDTO(Product product) {
         return ProductDTO.builder()
                 .id(product.getId())
