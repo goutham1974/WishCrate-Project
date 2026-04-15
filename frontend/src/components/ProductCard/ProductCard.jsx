@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Card,
@@ -10,14 +10,29 @@ import {
   Rating,
   Chip,
 } from '@mui/material';
-import { ShoppingCart, Favorite } from '@mui/icons-material';
+import { ShoppingCart, Favorite, FavoriteBorder } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-import { cartAPI } from '../../services/api';
+import { api, cartAPI } from '../../services/api';
 import { useCartStore } from '../../store/store';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, showRemoveButton = false, onRemoveFromWishlist = null }) => {
   const { setCart } = useCartStore();
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkWishlistStatus();
+  }, [product.id]);
+
+  const checkWishlistStatus = async () => {
+    try {
+      const response = await api.get(`/wishlist/check/${product.id}`);
+      setIsInWishlist(response.data);
+    } catch (err) {
+      setLoading(false);
+    }
+  };
 
   const handleAddToCart = async () => {
     try {
@@ -26,6 +41,29 @@ const ProductCard = ({ product }) => {
       toast.success('Added to cart!');
     } catch (error) {
       toast.error('Failed to add to cart');
+    }
+  };
+
+  const handleWishlistToggle = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      if (isInWishlist) {
+        await api.delete(`/wishlist/${product.id}`);
+        setIsInWishlist(false);
+        if (showRemoveButton && onRemoveFromWishlist) {
+          onRemoveFromWishlist();
+        } else {
+          toast.success('Removed from wishlist');
+        }
+      } else {
+        await api.post(`/wishlist/${product.id}`);
+        setIsInWishlist(true);
+        toast.success('Added to wishlist!');
+      }
+    } catch (error) {
+      toast.error('Failed to update wishlist');
     }
   };
 
@@ -66,6 +104,7 @@ const ProductCard = ({ product }) => {
 
         {/* Favorite Icon */}
         <IconButton
+          onClick={handleWishlistToggle}
           sx={{
             position: 'absolute',
             top: 10,
@@ -75,7 +114,11 @@ const ProductCard = ({ product }) => {
             '&:hover': { bgcolor: 'grey.100' },
           }}
         >
-          <Favorite />
+          {isInWishlist ? (
+            <Favorite sx={{ color: 'red' }} />
+          ) : (
+            <FavoriteBorder />
+          )}
         </IconButton>
 
         {/* Product Image */}

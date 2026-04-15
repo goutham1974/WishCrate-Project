@@ -16,6 +16,7 @@ import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { productAPI, cartAPI } from '../services/api';
 import { useCartStore } from '../store/store';
+import Reviews from '../components/Reviews/Reviews';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -256,6 +257,12 @@ const ProductDetailPage = () => {
           </Box>
         </Grid>
       </Grid>
+
+      {/* Reviews Section */}
+      <Box sx={{ mt: 6 }}>
+        <Divider sx={{ my: 4 }} />
+        <Reviews productId={product.id} />
+      </Box>
     </Container>
   );
 };
