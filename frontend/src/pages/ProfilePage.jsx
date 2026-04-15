@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
   Box,
@@ -16,6 +17,7 @@ import { motion } from 'framer-motion';
 
 const ProfilePage = () => {
   const { user } = useAuthStore();
+  const navigate = useNavigate();
 
   return (
     <Container maxWidth="xl" sx={{ py: 6 }}>
@@ -65,6 +67,7 @@ const ProfilePage = () => {
                   variant="outlined"
                   startIcon={<Edit />}
                   sx={{ mb: 2 }}
+                  onClick={() => navigate('/profile/edit')}
                 >
                   Edit Profile
                 </Button>
@@ -117,6 +120,7 @@ const ProfilePage = () => {
                       boxShadow: 6,
                     },
                   }}
+                  onClick={() => navigate('/orders')}
                 >
                   <CardContent sx={{ textAlign: 'center', p: 4 }}>
                     <ShoppingBag sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
@@ -147,6 +151,7 @@ const ProfilePage = () => {
                       boxShadow: 6,
                     },
                   }}
+                  onClick={() => navigate('/wishlist')}
                 >
                   <CardContent sx={{ textAlign: 'center', p: 4 }}>
                     <Favorite sx={{ fontSize: 60, color: 'error.main', mb: 2 }} />
@@ -177,6 +182,7 @@ const ProfilePage = () => {
                       boxShadow: 6,
                     },
                   }}
+                  onClick={() => navigate('/profile/addresses')}
                 >
                   <CardContent sx={{ textAlign: 'center', p: 4 }}>
                     <LocationOn sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
@@ -207,6 +213,7 @@ const ProfilePage = () => {
                       boxShadow: 6,
                     },
                   }}
+                  onClick={() => navigate('/profile/settings')}
                 >
                   <CardContent sx={{ textAlign: 'center', p: 4 }}>
                     <Edit sx={{ fontSize: 60, color: 'warning.main', mb: 2 }} />

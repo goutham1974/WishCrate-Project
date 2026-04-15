@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import api, { categoryAPI } from '../../services/api';
 import ProductCard from '../ProductCard/ProductCard';
 import '../../styles/ProductFilter.css';
 
@@ -33,10 +33,12 @@ export default function ProductFilter() {
 
   const fetchCategories = async () => {
     try {
-      const response = await api.get('/categories');
-      setCategories(response.data);
+      const response = await categoryAPI.getAll();
+      console.log('Categories loaded:', response.data);
+      setCategories(response.data || []);
     } catch (err) {
       console.error('Failed to load categories', err);
+      setCategories([]);
     }
   };
 
@@ -52,10 +54,13 @@ export default function ProductFilter() {
       };
 
       const response = await api.get('/products/filter', { params });
-      setProducts(response.data.content);
-      setTotalPages(response.data.totalPages);
+      console.log('Products loaded:', response.data);
+      setProducts(response.data.content || []);
+      setTotalPages(response.data.totalPages || 0);
     } catch (err) {
       console.error('Failed to load products', err);
+      setProducts([]);
+      setTotalPages(0);
     } finally {
       setLoading(false);
     }
