@@ -26,26 +26,31 @@ public class ProductService {
         this.categoryRepository = categoryRepository;
     }
     
+    @Transactional(readOnly = true)
     public Page<ProductDTO> getAllProducts(Pageable pageable) {
         return productRepository.findByActiveTrue(pageable)
                 .map(this::convertToDTO);
     }
     
+    @Transactional(readOnly = true)
     public Page<ProductDTO> getProductsByCategory(Long categoryId, Pageable pageable) {
         return productRepository.findByCategoryIdAndActiveTrue(categoryId, pageable)
                 .map(this::convertToDTO);
     }
     
+    @Transactional(readOnly = true)
     public Page<ProductDTO> searchProducts(String keyword, Pageable pageable) {
         return productRepository.searchProducts(keyword, pageable)
                 .map(this::convertToDTO);
     }
     
+    @Transactional(readOnly = true)
     public Page<ProductDTO> getProductsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable) {
         return productRepository.findByPriceRange(minPrice, maxPrice, pageable)
                 .map(this::convertToDTO);
     }
     
+    @Transactional(readOnly = true)
     public List<ProductDTO> getFeaturedProducts() {
         return productRepository.findByFeaturedTrueAndActiveTrue()
                 .stream()
@@ -53,6 +58,7 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
     
+    @Transactional(readOnly = true)
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -119,6 +125,7 @@ public class ProductService {
         productRepository.save(product);
     }
     
+    @Transactional(readOnly = true)
     public Page<ProductDTO> filterProducts(String keyword, Long categoryId, BigDecimal minPrice,
                                           BigDecimal maxPrice, String brand, Double minRating,
                                           boolean discountOnly, Pageable pageable) {
@@ -127,11 +134,13 @@ public class ProductService {
                 .map(this::convertToDTO);
     }
     
+    @Transactional(readOnly = true)
     public Page<ProductDTO> getProductsByBrand(String brand, Pageable pageable) {
         return productRepository.findByBrandAndActiveTrue(brand, pageable)
                 .map(this::convertToDTO);
     }
     
+    @Transactional(readOnly = true)
     public List<ProductDTO> getTopRatedProducts(int limit) {
         return productRepository.findTopRatedProducts(limit).stream()
                 .map(this::convertToDTO)
