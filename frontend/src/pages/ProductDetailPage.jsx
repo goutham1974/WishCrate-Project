@@ -63,6 +63,11 @@ const ProductDetailPage = () => {
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
     : 0;
 
+  // Use images array if available, otherwise create array with imageUrl
+  const productImages = (product.images && product.images.length > 0) 
+    ? product.images 
+    : (product.imageUrl ? [product.imageUrl] : ['https://via.placeholder.com/600']);
+
   return (
     <Container maxWidth="xl" sx={{ py: 6 }}>
       <Grid container spacing={4}>
@@ -73,7 +78,7 @@ const ProductDetailPage = () => {
               key={selectedImage}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              src={product.images?.[selectedImage] || 'https://via.placeholder.com/600'}
+              src={productImages[selectedImage] || 'https://via.placeholder.com/600'}
               alt={product.name}
               style={{
                 width: '100%',
@@ -83,9 +88,9 @@ const ProductDetailPage = () => {
               }}
             />
             
-            {product.images?.length > 1 && (
+            {productImages?.length > 1 && (
               <Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
-                {product.images.map((image, index) => (
+                {productImages.map((image, index) => (
                   <Box
                     key={index}
                     onClick={() => setSelectedImage(index)}
