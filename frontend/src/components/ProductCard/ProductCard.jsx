@@ -13,7 +13,7 @@ import {
 import { ShoppingCart, Favorite, FavoriteBorder } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-import { api, cartAPI } from '../../services/api';
+import api, { cartAPI } from '../../services/api';
 import { useCartStore } from '../../store/store';
 
 const ProductCard = ({ product, showRemoveButton = false, onRemoveFromWishlist = null }) => {
