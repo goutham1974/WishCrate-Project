@@ -25,12 +25,26 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders")
 @EntityListeners(AuditingEntityListener.class)
+@NamedEntityGraph(
+    name = "Order.withItemsAndProducts",
+    attributeNodes = {
+        @NamedAttributeNode(value = "orderItems", subgraph = "items.product")
+    },
+    subgraphs = {
+        @NamedAttributeNode.SubGraph(
+            name = "items.product",
+            attributeNodes = {@NamedAttributeNode("product")}
+        )
+    }
+)
 public class Order {
     
     @Id
