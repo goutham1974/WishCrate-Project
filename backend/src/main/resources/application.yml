@@ -20,7 +20,7 @@ spring:
   sql:
     init:
       mode: ALWAYS
-      data-locations: file:database/data.sql
+      data-locations: optional:file:database/data.sql
   
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
