@@ -18,7 +18,7 @@ const OrderDetailPage = () => {
   const fetchOrderDetail = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/api/orders/${orderId}`);
+      const response = await api.get(`/orders/${orderId}`);
       setOrder(response.data);
       setError(null);
     } catch (err) {
@@ -32,7 +32,7 @@ const OrderDetailPage = () => {
     if (window.confirm('Are you sure you want to cancel this order?')) {
       try {
         setCancelling(true);
-        const response = await api.put(`/api/orders/${orderId}/cancel`);
+        const response = await api.put(`/orders/${orderId}/cancel`);
         setOrder(response.data);
         alert('Order cancelled successfully');
       } catch (err) {

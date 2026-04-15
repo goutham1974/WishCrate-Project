@@ -38,7 +38,7 @@ const OrdersPage = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/orders?page=0&size=20');
+      const response = await api.get('/orders?page=0&size=20');
       setOrders(response.data.content || []);
       setError(null);
     } catch (err) {
@@ -61,7 +61,7 @@ const OrdersPage = () => {
     if (window.confirm(`Cancel order #${orderNumber}? This action cannot be undone.`)) {
       try {
         setCancelling(orderId);
-        await api.put(`/api/orders/${orderId}/cancel`);
+        await api.put(`/orders/${orderId}/cancel`);
         // Refresh orders after cancellation
         fetchOrders();
         alert('Order cancelled successfully');
