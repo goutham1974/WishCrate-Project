@@ -88,7 +88,8 @@ public class ReviewService {
     public void markAsHelpful(Long reviewId) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
-        review.setHelpfulCount((review.getHelpfulCount() != null ? review.getHelpfulCount() : 0) + 1);
+        int currentCount = review.getHelpfulCount() != null ? review.getHelpfulCount() : 0;
+        review.setHelpfulCount(currentCount + 1);
         reviewRepository.save(review);
     }
     

@@ -3,6 +3,8 @@ package com.wishcrate.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.wishcrate.dto.ProductDTO;
@@ -10,8 +12,6 @@ import com.wishcrate.model.Product;
 import com.wishcrate.model.User;
 import com.wishcrate.repository.ProductRepository;
 import com.wishcrate.repository.UserRepository;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Service
 public class WishlistService {
@@ -69,8 +69,8 @@ public class WishlistService {
         dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
-        dto.setPrice(product.getPrice().doubleValue());
-        dto.setDiscountPrice(product.getDiscountPrice() != null ? product.getDiscountPrice().doubleValue() : null);
+        dto.setPrice(product.getPrice());
+        dto.setDiscountPrice(product.getDiscountPrice());
         dto.setBrand(product.getBrand());
         dto.setImageUrl(!product.getImages().isEmpty() ? product.getImages().get(0) : null);
         dto.setStockQuantity(product.getStockQuantity());
