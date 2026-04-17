@@ -19,7 +19,7 @@ spring:
   
   sql:
     init:
-      mode: ALWAYS
+      mode: NEVER
       data-locations: optional:file:database/data.sql
   
   mail:
