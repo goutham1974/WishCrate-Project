@@ -128,7 +128,30 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<ProductDTO> filterProducts(String keyword, Long categoryId, BigDecimal minPrice,
                                           BigDecimal maxPrice, String brand, Double minRating,
-                                          boolean discountOnly, Pageable pageable) {
+                                          Boolean discountOnly, Pageable pageable) {
+        // Input sanitization - convert empty strings to null
+        if (keyword != null && keyword.trim().isEmpty()) {
+            keyword = null;
+        }
+        
+        if (brand != null && brand.trim().isEmpty()) {
+            brand = null;
+        }
+        
+        // Handle null discountOnly
+        if (discountOnly == null) {
+            discountOnly = false;
+        }
+        
+        // Debug logging
+        System.out.println("keyword: " + keyword);
+        System.out.println("categoryId: " + categoryId);
+        System.out.println("minPrice: " + minPrice);
+        System.out.println("maxPrice: " + maxPrice);
+        System.out.println("brand: " + brand);
+        System.out.println("minRating: " + minRating);
+        System.out.println("discountOnly: " + discountOnly);
+        
         return productRepository.filterProducts(keyword, categoryId, minPrice, maxPrice,
                 brand, minRating, discountOnly, pageable)
                 .map(this::convertToDTO);
