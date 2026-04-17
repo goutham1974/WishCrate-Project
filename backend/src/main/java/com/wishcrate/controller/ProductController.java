@@ -98,7 +98,7 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size,
             @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "DESC") String sortDir) {
+            @RequestParam(defaultValue = "ASC") String sortDir) {
         
         try {
             // Default discountOnly to false if not provided
@@ -110,8 +110,12 @@ public class ProductController {
             String validSortBy = "id".equals(sortBy) || "name".equals(sortBy) || "price".equals(sortBy) 
                     || "averageRating".equals(sortBy) ? sortBy : "id";
             
-            Sort sort = sortDir.equalsIgnoreCase("ASC") ? 
-                    Sort.by(validSortBy).ascending() : Sort.by(validSortBy).descending();
+            // Validate and sanitize sortDir - must be ASC or DESC
+            String validSortDir = "DESC".equalsIgnoreCase(sortDir) ? "DESC" : "ASC";
+            
+            // Create sort order based on direction
+            Sort sort = "DESC".equalsIgnoreCase(validSortDir) ?
+                    Sort.by(validSortBy).descending() : Sort.by(validSortBy).ascending();
             
             PageRequest pageRequest = PageRequest.of(page, size, sort);
             return ResponseEntity.ok(productService.filterProducts(keyword, categoryId, minPrice, maxPrice,
