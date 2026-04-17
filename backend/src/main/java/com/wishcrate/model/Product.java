@@ -55,7 +55,7 @@ public class Product {
     @ElementCollection
     private List<String> images = new ArrayList<>();
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
     
