@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api, { categoryAPI } from '../../services/api';
+import { categoryAPI, productAPI } from '../../services/api';
 import ProductCard from '../ProductCard/ProductCard';
 import '../../styles/ProductFilter.css';
 
@@ -53,7 +53,7 @@ export default function ProductFilter() {
         ...Object.fromEntries(Object.entries(filters).filter(([, v]) => v !== null && v !== false && v !== ''))
       };
 
-      const response = await api.get('/products/filter', { params });
+      const response = await productAPI.filter(params);
       console.log('Products loaded:', response.data);
       setProducts(response.data.content || []);
       setTotalPages(response.data.totalPages || 0);

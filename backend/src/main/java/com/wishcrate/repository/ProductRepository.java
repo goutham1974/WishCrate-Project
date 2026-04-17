@@ -44,7 +44,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.active = true ORDER BY p.averageRating DESC")
     Page<Product> findTopRatedProducts(Pageable pageable);
     
-    @Query(value = "SELECT p FROM Product p WHERE p.active = true ORDER BY p.averageRating DESC LIMIT :limit")
+    @Query(value = "SELECT * FROM products WHERE active = true ORDER BY average_rating DESC LIMIT :limit", nativeQuery = true)
     List<Product> findTopRatedProducts(@Param("limit") int limit);
     
     @Query("SELECT p FROM Product p WHERE p.active = true AND " +

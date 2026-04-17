@@ -43,6 +43,7 @@ export const productAPI = {
   search: (keyword, params) => api.get('/products/search', { params: { keyword, ...params } }),
   getByCategory: (categoryId, params) => api.get(`/products/category/${categoryId}`, { params }),
   getFeatured: () => api.get('/products/featured'),
+  filter: (params) => api.get('/products/filter', { params }),
   create: (data) => api.post('/products', data),
   update: (id, data) => api.put(`/products/${id}`, data),
   delete: (id) => api.delete(`/products/${id}`),
