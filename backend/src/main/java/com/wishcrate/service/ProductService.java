@@ -170,6 +170,7 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
     
+    @SuppressWarnings("all")
     private ProductDTO convertToDTO(Product product) {
         try {
             return ProductDTO.builder()
@@ -184,8 +185,8 @@ public class ProductService {
                     .imageUrl(product.getImageUrl())
                     .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
                     .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
-                    .averageRating(product.getAverageRating() != null ? product.getAverageRating() : 0.0)
-                    .totalReviews(product.getTotalReviews() != null ? product.getTotalReviews() : 0)
+                    .averageRating(product.getAverageRating())
+                    .totalReviews(product.getTotalReviews())
                     .sku(product.getSku())
                     .specifications(product.getSpecifications() != null ? product.getSpecifications() : new java.util.HashMap<>())
                     .featured(product.isFeatured())

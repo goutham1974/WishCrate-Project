@@ -94,13 +94,18 @@ public class ProductController {
             @RequestParam(required = false) BigDecimal maxPrice,
             @RequestParam(required = false) String brand,
             @RequestParam(required = false) Double minRating,
-            @RequestParam(defaultValue = "false") boolean discountOnly,
+            @RequestParam(required = false) Boolean discountOnly,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "DESC") String sortDir) {
         
         try {
+            // Default discountOnly to false if not provided
+            if (discountOnly == null) {
+                discountOnly = false;
+            }
+            
             // Validate and sanitize sortBy parameter to prevent injection
             String validSortBy = "id".equals(sortBy) || "name".equals(sortBy) || "price".equals(sortBy) 
                     || "averageRating".equals(sortBy) ? sortBy : "id";
@@ -113,7 +118,8 @@ public class ProductController {
                     brand, minRating, discountOnly, pageRequest));
         } catch (Exception e) {
             System.err.println("Error filtering products: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Stack trace:");
+            e.printStackTrace(System.err);
             throw new RuntimeException("Error filtering products: " + e.getMessage(), e);
         }
     }
