@@ -56,7 +56,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
            "(:maxPrice IS NULL OR p.price <= :maxPrice) AND " +
            "(:brand IS NULL OR LOWER(p.brand) = LOWER(:brand)) AND " +
            "(:minRating IS NULL OR p.averageRating >= :minRating) AND " +
-           "(NOT :discountOnly OR p.discountPrice IS NOT NULL)")
+           "(CASE WHEN :discountOnly = true THEN p.discountPrice IS NOT NULL ELSE true END)")
     Page<Product> filterProducts(@Param("keyword") String keyword,
                                  @Param("categoryId") Long categoryId,
                                  @Param("minPrice") BigDecimal minPrice,
