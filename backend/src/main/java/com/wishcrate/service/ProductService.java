@@ -148,24 +148,29 @@ public class ProductService {
     }
     
     private ProductDTO convertToDTO(Product product) {
-        return ProductDTO.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .discountPrice(product.getDiscountPrice())
-                .stockQuantity(product.getStockQuantity())
-                .brand(product.getBrand())
-                .images(product.getImages())
-                .imageUrl(product.getImageUrl())
-                .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
-                .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
-                .averageRating(product.getAverageRating())
-                .totalReviews(product.getTotalReviews())
-                .sku(product.getSku())
-                .specifications(product.getSpecifications())
-                .featured(product.isFeatured())
-                .active(product.isActive())
-                .build();
+        try {
+            return ProductDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .description(product.getDescription())
+                    .price(product.getPrice())
+                    .discountPrice(product.getDiscountPrice())
+                    .stockQuantity(product.getStockQuantity())
+                    .brand(product.getBrand())
+                    .images(product.getImages() != null ? product.getImages() : new java.util.ArrayList<>())
+                    .imageUrl(product.getImageUrl())
+                    .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
+                    .categoryName(product.getCategory() != null ? product.getCategory().getName() : null)
+                    .averageRating(product.getAverageRating() != null ? product.getAverageRating() : 0.0)
+                    .totalReviews(product.getTotalReviews() != null ? product.getTotalReviews() : 0)
+                    .sku(product.getSku())
+                    .specifications(product.getSpecifications() != null ? product.getSpecifications() : new java.util.HashMap<>())
+                    .featured(product.isFeatured())
+                    .active(product.isActive())
+                    .build();
+        } catch (Exception e) {
+            System.err.println("Error converting product to DTO: " + e.getMessage());
+            throw new RuntimeException("Error converting product: " + e.getMessage(), e);
+        }
     }
 }
